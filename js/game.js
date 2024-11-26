@@ -1,12 +1,20 @@
+// import startGame from "startGame.js";
 // global variables
 let userImage;
+let gameState = false;
+
+function preload() {
+  userImage = loadImage("user.png");
+}
+window.preload = preload;
 
 function setup() {
-  createCanvas(800, 500);
+  createCanvas(500, 700);
 
   // Load the character
-  userImage = loadImage("assets/user.png");
+  // userImage = loadImage("user.png");
 }
+window.setup = setup;
 
 class User {
   constructor(x, y) {
@@ -16,6 +24,8 @@ class User {
   }
 
   draw() {
+    fill(255);
+    ellipse(this.x, this.y, 100, 100);
     image(userImage, this.x, this.y, 100, 100);
   }
 }
@@ -25,7 +35,7 @@ let user = new User(100, 100);
 
 class Platform {
   constructor(x, y) {
-    this.x = x;
+    this.x = Math.random() * 420;
     this.y = y;
   }
 
@@ -39,18 +49,24 @@ class Platform {
 let platform = new Platform(100, 100);
 
 function draw() {
-  background(51, 53, 135);
+  // if (!gameState) {
+  //   startGame(x, y);
+  // } else {
+  //   background(51, 53, 135);
 
-  user.draw();
+  //   user.draw();
 
-  /*
-  anotherUser.draw();
-  // moving the user
-  anotherUser.y += 1;
-  */
+  //   /*
+  //   anotherUser.draw();
+  //   // moving the user
+  //   anotherUser.y += 1;
+  //   */
 
-  // moving the platform
-  platform.x += 1;
+  //   // moving the platform
+  //   //platform.x += 1;
 
-  platform.draw();
+  //   platform.draw();
+  // }
+  image(userImage, 100, 100, 100, 100);
 }
+window.draw = draw;

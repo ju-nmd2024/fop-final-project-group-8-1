@@ -1,14 +1,16 @@
-/*import Button from "./button.js";
-import BlueButton from "./blueButton.js";
-
+import Button from "./button.js";
 function setup() {
   createCanvas(500, 700);
+}
+
+function background() {
+  fill(255, 30, 88);
+  rect(this.x - 100, this.y - 100, 500, 700);
 }
 
 window.setup = setup;
 
 const myButton = new Button(100, 100, 160, 40, "Hello");
-const worldButton = new Button(100, 300, 260, 60, "World");
 
 function draw() {
   background(255);
@@ -16,14 +18,10 @@ function draw() {
   if (mouseIsPressed) {
     if (myButton.hitTest(mouseX, mouseY)) {
       background(255, 0, 0);
-    } else if (worldButton.hitTest(mouseX, mouseY)) {
-      background(0, 255, 0);
     }
   }
 
   myButton.draw();
-  worldButton.draw();
 }
 
 window.draw = draw;
-*/
