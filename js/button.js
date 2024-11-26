@@ -25,7 +25,7 @@ export default class Button {
 
     pop();
   }
-  
+
   hitTest(x, y) {
     return (
       x > this.x &&
