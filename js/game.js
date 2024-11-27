@@ -6,17 +6,20 @@ import Platform from "./platform.js";
 let userImage;
 let gameState = false;
 
-/* function preload() {
+let user;
+
+function preload() {
   //userImage = loadImage("./assets/user.png");
+  user = new User(100, 100);
 }
-window.preload = preload; */
+window.preload = preload;
 
 function setup() {
   createCanvas(500, 700);
 }
+
 window.setup = setup;
 
-let user = new User(100, 100);
 // let anotherUser = new User(200, 200);
 
 let platform = new Platform(100, 300);
