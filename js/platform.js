@@ -1,6 +1,6 @@
 export default class Platform {
-  constructor(x, y) {
-    this.x = Math.random() * 420;
+  constructor(w, y) {
+    this.x = Math.random() * w;
     this.y = y;
   }
 
