@@ -1,7 +1,7 @@
 export default class Platform {
-  constructor(x, y) {
-    // this.x = Math.random() * 420;
-    this.x = x;
+  constructor(w, y) {
+    this.x = Math.random() * w;
+    //this.x = x;
     this.y = y;
   }
 
@@ -10,6 +10,7 @@ export default class Platform {
     fill(232, 23, 136);
     rect(this.x, this.y, 80, 10, 10);
   }
+
   hitTest(x, y) {
     return (
       x > this.x &&
@@ -19,5 +20,3 @@ export default class Platform {
     );
   }
 }
-
-// let platform = new Platform(100, 100);

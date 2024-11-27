@@ -1,8 +1,8 @@
 export default class User {
-  constructor(x, y, userImage) {
+  constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.userImage = userImage;
+    //this.userImage = loadImage("./assets/user.png");
     // this.size = 100;
   }
 

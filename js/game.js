@@ -6,21 +6,20 @@ import Platform from "./platform.js";
 let userImage;
 let gameState = false;
 
-function preload() {
-  userImage = loadImage("./assets/user.png");
+/* function preload() {
+  //userImage = loadImage("./assets/user.png");
 }
-
-window.preload = preload;
+window.preload = preload; */
 
 function setup() {
   createCanvas(500, 700);
 }
 window.setup = setup;
 
-let user = new User(100, 100, userImage);
+let user = new User(100, 100);
 // let anotherUser = new User(200, 200);
 
-let platform = new Platform(100, 100);
+let platform = new Platform(100, 300);
 
 let startGame = new StartGame(100, 100);
 
@@ -31,7 +30,7 @@ function draw() {
     background(51, 53, 135);
     platform.draw();
 
-    // user.draw();
+    user.draw();
     /*
     anotherUser.draw();
     // moving the user
