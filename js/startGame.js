@@ -9,7 +9,7 @@ export default class StartGame {
 
   draw() {
     fill(255, 30, 88);
-    rect(this.x - 100, this.y - 100, 500, 700);
+    rect(this.x - 100, this.y - 100, 300, 500);
 
     this.button.draw();
   }

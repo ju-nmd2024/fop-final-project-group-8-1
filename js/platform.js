@@ -1,14 +1,15 @@
 export default class Platform {
-  constructor(w, y) {
-    this.x = Math.random() * w;
-    //this.x = x;
+  constructor(x, y) {
+    this.x = x;
     this.y = y;
+    this.width = 80;
+    this.height = 10;
   }
 
   draw() {
     noStroke();
     fill(232, 23, 136);
-    rect(this.x, this.y, 80, 10, 10);
+    rect(this.x, this.y, this.width, this.height, 10);
   }
 
   hitTest(x, y) {

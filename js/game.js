@@ -3,26 +3,30 @@ import User from "./user.js";
 import Platform from "./platform.js";
 
 // global variables
-let userImage;
+let userImage; // testa att ta bort om den faktiskt behövs
 let gameState = false;
-
 let user;
+let platforms = [];
 
 function preload() {
-  //userImage = loadImage("./assets/user.png");
   user = new User(100, 100);
 }
 window.preload = preload;
 
 function setup() {
-  createCanvas(500, 700);
+  createCanvas(300, 500);
+
+  for (let i = 0; i < 10; i++) {
+    let randomX = Math.random() * width;
+    let randomY = Math.random() * height;
+
+    platforms.push(new Platform(randomX, randomY));
+  }
 }
 
 window.setup = setup;
 
 // let anotherUser = new User(200, 200);
-
-let platform = new Platform(100, 300);
 
 let startGame = new StartGame(100, 100);
 
@@ -31,7 +35,10 @@ function draw() {
     startGame.draw();
   } else {
     background(51, 53, 135);
-    platform.draw();
+
+    for (let platform of platforms) {
+      platform.draw();
+    }
 
     user.draw();
     /*
@@ -41,15 +48,11 @@ function draw() {
     */
 
     // moving the platform
-    //platform.x += 1;
+    // platform.x += 1;
   }
 
-  // image(userImage, 100, 100, 100, 100);
-
   // // collision
-  // if(
-  //   dist(user) < platform
-  // ) {
+  // if (dist(user) < platform) {
   //   console.log("collision");
   // } else {
   //   console.log("free");
