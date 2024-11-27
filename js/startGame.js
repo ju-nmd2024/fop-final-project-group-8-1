@@ -1,4 +1,4 @@
-import Button from "./startscreen/button.js";
+import Button from "./button.js";
 
 export default class StartGame {
   constructor(x, y) {

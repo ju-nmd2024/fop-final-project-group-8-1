@@ -1,5 +1,5 @@
 import StartGame from "./startGame.js";
-import User from "./assets/user.js";
+import User from "./user.js";
 import Platform from "./platform.js";
 
 // global variables
