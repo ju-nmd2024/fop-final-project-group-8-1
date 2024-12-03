@@ -8,18 +8,30 @@ let gameState = false;
 let user;
 let platforms = [];
 
+let boardWidth = 300;
+let boardHeight = 500;
+
+//game logic variables
+let speed = 1;
+let velocityY = 0; //user jump speed
+let firstVelocityY = -8; //start velocity
+let gravity = 0.4;
+
 function preload() {
-  user = new User(100, 100);
+  user = new User(100, 300);
 }
 window.preload = preload;
 
 function setup() {
-  createCanvas(300, 500);
+  createCanvas(boardWidth, boardHeight);
+
+  velocityY = firstVelocityY;
 
   for (let i = 0; i < 10; i++) {
     let randomX = Math.random() * width;
     let randomY = Math.random() * height;
 
+  
     let newPlatform = new Platform(randomX, randomY);
 
     // with the help of chatgpt, double check!!
@@ -52,8 +64,25 @@ function draw() {
   } else {
     background(51, 53, 135);
 
+    // user logic
     user.draw();
+    user.y = user.y + speed;
 
+    //done with help of a youtube video
+    //https://www.youtube.com/watch?v=pHFtOYU-a20&feature=youtu.be
+    if (user.x > boardWidth) {
+      user.x = -100;
+    } else if (user.x + 100 < 0) {
+      user.x = boardWidth;
+    }
+
+    velocityY += gravity;
+    user.y += velocityY;
+
+    // if (hitTest(user, platform)) {
+    //   velocityY = firstVelocityY; // jump off platform
+    // }
+    
     // collision
     let colliding = false;
 
