@@ -20,7 +20,23 @@ function setup() {
     let randomX = Math.random() * width;
     let randomY = Math.random() * height;
 
-    platforms.push(new Platform(randomX, randomY));
+    let newPlatform = new Platform(randomX, randomY);
+
+    // with the help of chatgpt, double check!!
+    // https://chatgpt.com/c/674e240e-cc24-800e-927a-4bc164234dae
+    // space between platform
+    let overlaps = platforms.some((platform) => {
+      return !(
+        newPlatform.x + newPlatform.width + 20 < platform.x ||
+        newPlatform.x > platform.x + platform.width + 20 ||
+        newPlatform.y + newPlatform.height + 20 < platform.y ||
+        newPlatform.y > platform.y + platform.height + 20
+      );
+    });
+
+    if (!overlaps) {
+      platforms.push(newPlatform);
+    }
   }
 }
 
@@ -36,11 +52,28 @@ function draw() {
   } else {
     background(51, 53, 135);
 
+    user.draw();
+
+    // collision
+    let colliding = false;
+
     for (let platform of platforms) {
       platform.draw();
+      if (platform.hitTest(user.x + 45, user.y + 110)) {
+        colliding = true;
+      }
     }
 
-    user.draw();
+    if (colliding) {
+      console.log("collision");
+
+      // testing
+      fill(0);
+      noStroke();
+      ellipse(50, 50, 50, 50);
+    } else {
+      console.log("free");
+    }
     /*
     anotherUser.draw();
     // moving the user
@@ -48,15 +81,8 @@ function draw() {
     */
 
     // moving the platform
-    // platform.x += 1;
+    // platform.x += 1;´
   }
-
-  // // collision
-  // if (dist(user) < platform) {
-  //   console.log("collision");
-  // } else {
-  //   console.log("free");
-  // }
 }
 window.draw = draw;
 
