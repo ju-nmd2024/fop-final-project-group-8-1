@@ -1,6 +1,7 @@
 import StartGame from "./startGame.js";
 import User from "./user.js";
 import Platform from "./platform.js";
+import LoseGame from "./loseGame.js";
 
 // global variables
 let gameState = false;
@@ -16,6 +17,8 @@ let velocityY = 0; //user jump speed
 let firstVelocityY = -10; //start velocity
 let gravity = 0.4;
 let score = 0;
+let maxScore = 0; 
+let gameOver = false; 
 
 function preload() {
   user = new User(100, 300);
@@ -58,6 +61,8 @@ window.setup = setup;
 // let anotherUser = new User(200, 200);
 
 let startGame = new StartGame(100, 100);
+
+let loseGame = new LoseGame(100, 100); 
 
 function draw() {
   if (!gameState) {
@@ -110,18 +115,28 @@ function draw() {
 
     // moving the platform
     // platform.x += 1;
-
+    
+    // help from the same youtube video as before 
     // // score
-    // updateScore();
-    // fill(0); // Black color
-    // textSize(16);
-    // text(`Score: ${score}`, 5, 20);
-    context.fillStyle = "black";
-    context.font = "16px sans-serif";
-    context.fillText(score, 5, 20);
+    updateScore();
+    fill(0); 
+    textSize(16);
+    text(`Score: ${score}`, 5, 20);
+
+
+if (user.y > board.height) { 
+      gameOver = true; 
+    }
+  
+    if (gameOver) { 
+      loseGame.draw();  
+    }
+    if (gameOver) {
+      return; 
+    }
   }
 }
-window.draw = draw;
+window.draw = draw; 
 
 function mousePressed() {
   if (!gameState) {
@@ -133,25 +148,18 @@ function mousePressed() {
 
 window.mousePressed = mousePressed;
 
+// help from the same youtube video as before 
 function updateScore() {
-  let points = Math.floor(50 * Math.random());
+  let points = Math.floor(1);
 
-  if (velocity < 0) {
+  if (velocityY < 0) {
     maxScore += points;
     if (score < maxScore) {
       score = maxScore;
     }
-  } else if (velocity >= 0) {
+  } else if (velocityY >= 0) {
     maxScore -= points;
   }
 }
-
-// function updateScore() {
-//   if (velocityY < 0) {
-//     // Only update the score when the user is moving upwards
-//     let points = Math.abs(Math.floor(user.y)); // Score based on upward movement
-//     score = Math.max(score, points); // Keep the highest score
-//   }
-// }
 
 window.updateScore = updateScore;
