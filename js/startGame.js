@@ -1,15 +1,16 @@
+import { startPicture } from "./game.js";
 import Button from "./button.js";
 
 export default class StartGame {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.button = new Button(100, 100, 160, 40, "Hello");
+    this.button = new Button(75, 330, 160, 40, "PLAY");
+    // this.startGameImage = loadImage("./assets/startGame.png");
   }
 
   draw() {
-    fill(255, 30, 88);
-    rect(this.x - 100, this.y - 100, 300, 500);
+    image(startPicture, 0, 0, 300, 500);
 
     this.button.draw();
   }

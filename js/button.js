@@ -11,15 +11,16 @@ export default class Button {
   draw() {
     push();
     translate(this.x, this.y);
-    stroke("#4d4d4d");
+    stroke(92, 28, 176);
     strokeWeight(4);
-    fill(this.backgroundColor);
+    fill(255);
     rect(0, 0, this.width, this.height, this.height / 2);
 
     // define text
     noStroke();
-    fill("#4d4d4d");
+    fill(92, 28, 176);
     textSize(this.height / 2);
+    textStyle(BOLD);
     textAlign(CENTER);
     text(this.text, 0, this.height / 4, this.width);
 

@@ -8,7 +8,7 @@ export default class Platform {
 
   draw() {
     noStroke();
-    fill(232, 23, 136);
+    fill(255);
     rect(this.x, this.y, this.width, this.height, 10);
   }
 

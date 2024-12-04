@@ -17,11 +17,20 @@ let velocityY = 0; //user jump speed
 let firstVelocityY = -10; //start velocity
 let gravity = 0.4;
 let score = 0;
-let maxScore = 0; 
-let gameOver = false; 
+let maxScore = 0;
+let gameOver = false;
+
+// importing images done with the help of Lova & Emelie
+export let startPicture;
+export let losePicture;
+export let gameScreen;
 
 function preload() {
   user = new User(100, 300);
+
+  startPicture = loadImage("assets/startGame.png");
+  losePicture = loadImage("assets/loseGame.png");
+  gameScreen = loadImage("assets/gameScreen.png");
 }
 window.preload = preload;
 
@@ -56,19 +65,16 @@ function setup() {
 
 window.setup = setup;
 
-// function newPlatform() {}
-
-// let anotherUser = new User(200, 200);
-
 let startGame = new StartGame(100, 100);
-
-let loseGame = new LoseGame(100, 100); 
+let loseGame = new LoseGame(100, 100);
 
 function draw() {
   if (!gameState) {
     startGame.draw();
+  } else if (gameOver) {
+    loseGame.draw();
   } else {
-    background(51, 53, 135);
+    image(gameScreen, 0, 0, 300, 500);
 
     // user logic
     user.draw();
@@ -107,48 +113,40 @@ function draw() {
       platforms.push(newPlatform); // Add the new platform to the array
     }
 
-    /*
-    anotherUser.draw();
-    // moving the user
-    anotherUser.y += 1;
-    */
-
     // moving the platform
     // platform.x += 1;
-    
-    // help from the same youtube video as before 
+
+    // help from the same youtube video as before
     // // score
     updateScore();
-    fill(0); 
+    fill(255);
     textSize(16);
     text(`Score: ${score}`, 5, 20);
 
-
-if (user.y > board.height) { 
-      gameOver = true; 
-    }
-  
-    if (gameOver) { 
-      loseGame.draw();  
-    }
-    if (gameOver) {
-      return; 
+    if (user.y > boardHeight) {
+      gameOver = true;
+      loseGame.setScore(score);
     }
   }
 }
-window.draw = draw; 
+
+window.draw = draw;
 
 function mousePressed() {
   if (!gameState) {
     if (startGame.handleMouseClick()) {
       gameState = true;
     }
+  } else if (gameOver) {
+    if (loseGame.handleMouseClick()) {
+      resetGame();
+    }
   }
 }
 
 window.mousePressed = mousePressed;
 
-// help from the same youtube video as before 
+// help from the same youtube video as before
 function updateScore() {
   let points = Math.floor(1);
 
@@ -163,3 +161,23 @@ function updateScore() {
 }
 
 window.updateScore = updateScore;
+
+// Done with the help of chatgpt
+// https://chatgpt.com/c/67504f28-e27c-800e-b92b-7027ae2d2387
+function resetGame() {
+  gameOver = false;
+  score = 0;
+  maxScore = 0;
+  velocityY = firstVelocityY;
+  user.y = 300;
+  user.x = 100;
+  platforms = [];
+
+  for (let i = 0; i < 10; i++) {
+    let randomX = Math.random() * width;
+    let randomY = Math.random() * height;
+    platforms.push(new Platform(randomX, randomY));
+  }
+}
+
+window.resetGame = resetGame;
