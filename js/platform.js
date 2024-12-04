@@ -12,7 +12,7 @@ export default class Platform {
     rect(this.x, this.y, this.width, this.height, 10);
   }
 
-  hitTest(x, y) {
+  detectCollision(x, y) {
     return (
       x > this.x &&
       x < this.x + this.width &&
@@ -21,5 +21,3 @@ export default class Platform {
     );
   }
 }
-
-
