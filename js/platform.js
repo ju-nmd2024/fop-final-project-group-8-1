@@ -9,6 +9,10 @@ export default class Platform {
       // 10% chance, -1 = left, 1 = right, 0 = movement
       Math.random() < 0.1 ? (Math.random() < 0.5 ? -1 : 1) : 0;
     this.moveSpeed = 2;
+
+    // Math.random() < 0.1 ? 
+
+    
   }
 
   draw() {
@@ -19,6 +23,8 @@ export default class Platform {
     if (this.moveX !== 0) {
       this.x += this.moveX * this.moveSpeed;
     }
+
+    
   }
 
   detectCollision(x, y) {
@@ -26,7 +32,7 @@ export default class Platform {
       x > this.x &&
       x < this.x + this.width &&
       y > this.y &&
-      y < this.y + this.height
+      y < this.y + this.height *3
     );
   }
 }

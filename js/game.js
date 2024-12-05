@@ -21,7 +21,7 @@ let boardHeight = 500;
 //game logic variables
 let speed = 1;
 let velocityY = 0; //user jump speed
-let firstVelocityY = -10; //start velocity
+let firstVelocityY = -9; //start velocity
 let gravity = 0.4;
 let score = 0;
 let maxScore = 0;
@@ -46,9 +46,9 @@ function setup() {
 
   velocityY = firstVelocityY;
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 100; i++) {
     let randomX = Math.random() * width;
-    let randomY = Math.random() * height;
+    let randomY = Math.random() * height * 2 - height;
 
     let newPlatform = new Platform(randomX, randomY);
 
@@ -113,10 +113,12 @@ function draw() {
     // clear platforms and add new platform
     while (platforms[0].y >= boardHeight) {
       platforms.shift(); // removes first element from array
+    }
 
+    if (platforms[platforms.length - 1].y > 0) {
       // Add a new platform at the top of the screen
       let randomX = Math.random() * width; // Random X position
-      let randomY = Math.random() * 1000;
+      let randomY = -50 + Math.random() * -50;
       let newPlatform = new Platform(randomX, randomY); // Y = 0 to start at the top
       platforms.push(newPlatform); // Add the new platform to the array
     }
@@ -125,7 +127,7 @@ function draw() {
     // platform.x += 1;
 
     // help from the same youtube video as before
-    // // score
+    // score
     updateScore();
     fill(255);
     textSize(16);
