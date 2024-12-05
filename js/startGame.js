@@ -6,7 +6,6 @@ export default class StartGame {
     this.x = x;
     this.y = y;
     this.button = new Button(75, 330, 160, 40, "PLAY");
-    // this.startGameImage = loadImage("./assets/startGame.png");
   }
 
   draw() {

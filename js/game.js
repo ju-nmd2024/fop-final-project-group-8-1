@@ -3,6 +3,13 @@ import User from "./user.js";
 import Platform from "./platform.js";
 import LoseGame from "./loseGame.js";
 
+// TODO
+/*
+Skapa ny platform när de är sista 1/3 av skärmen
+Döda platformar när de kommer utanför skärmen
+Generera platformar med större Y spann (karakärshopp distans)
+*/
+
 // global variables
 let gameState = false;
 let user;
@@ -50,10 +57,10 @@ function setup() {
     // space between platforms
     let overlaps = platforms.some((platform) => {
       return !(
-        newPlatform.x + newPlatform.width + 20 < platform.x ||
-        newPlatform.x > platform.x + platform.width + 20 ||
-        newPlatform.y + newPlatform.height + 20 < platform.y ||
-        newPlatform.y > platform.y + platform.height + 20
+        newPlatform.x + newPlatform.width + 50 < platform.x ||
+        newPlatform.x > platform.x + platform.width + 50 ||
+        newPlatform.y + newPlatform.height + 50 < platform.y ||
+        newPlatform.y > platform.y + platform.height + 50
       );
     });
 
@@ -104,12 +111,13 @@ function draw() {
     }
 
     // clear platforms and add new platform
-    while (platforms.length > 0 && platforms[0].y >= boardHeight) {
+    while (platforms[0].y >= boardHeight) {
       platforms.shift(); // removes first element from array
 
       // Add a new platform at the top of the screen
       let randomX = Math.random() * width; // Random X position
-      let newPlatform = new Platform(randomX, 200); // Y = 0 to start at the top
+      let randomY = Math.random() * 1000;
+      let newPlatform = new Platform(randomX, randomY); // Y = 0 to start at the top
       platforms.push(newPlatform); // Add the new platform to the array
     }
 
