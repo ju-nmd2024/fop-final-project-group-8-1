@@ -197,7 +197,7 @@ function resetGame() {
   platforms = [];
 
   // platforms
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 10; i++) {
     let randomX = Math.random() * width;
     let randomY = Math.random() * height * 2 - height;
     platforms.push(new Platform(randomX, randomY));
