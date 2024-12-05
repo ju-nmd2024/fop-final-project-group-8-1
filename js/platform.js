@@ -6,7 +6,8 @@ export default class Platform {
     this.height = 10;
 
     // moving platforms
-    // CHATGPT LÄNKKKK!!
+    // done with the help of chatgpt
+    // https://chatgpt.com/share/6751d960-753c-800e-97d9-730a233390fd
     this.moveX =
       // 10% chance, -1 = left, 1 = right, 0 = movement
       Math.random() < 0.1 ? (Math.random() < 0.5 ? -1 : 1) : 0;

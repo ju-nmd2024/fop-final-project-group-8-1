@@ -19,7 +19,8 @@ let score = 0;
 let maxScore = 0;
 let gameOver = false;
 
-// importing images done with the help of Lova Venema & Emelie Kryger
+// importing images
+// done with the help of Lova Venema & Emelie Kryger
 export let startPicture;
 export let losePicture;
 export let gameScreen;
@@ -46,7 +47,7 @@ function setup() {
 
     // space between platforms
     // with the help of chatgpt, double check!!
-    // https://chatgpt.com/c/674e240e-cc24-800e-927a-4bc164234dae
+    // https://chatgpt.com/share/6751d9ec-79e4-800e-bc73-9de36e656ba4
     let overlaps = platforms.some((platform) => {
       return !(
         newPlatform.x + newPlatform.width + 50 < platform.x ||
@@ -83,8 +84,8 @@ function draw() {
     user.y = user.y + speed;
 
     // user appering from each side when going from the opposite side
-    //done with help of a youtube video
-    //https://www.youtube.com/watch?v=pHFtOYU-a20&feature=youtu.be
+    // done with help of a youtube video
+    // https://www.youtube.com/watch?v=pHFtOYU-a20&feature=youtu.be
     if (user.x > boardWidth) {
       user.x = -100;
     } else if (user.x + 100 < 0) {
@@ -96,7 +97,8 @@ function draw() {
     user.y += velocityY;
 
     // update platforms
-    // youtube video
+    // done with help of a youtube video
+    // https://www.youtube.com/watch?v=pHFtOYU-a20&feature=youtu.be
     for (let platform of platforms) {
       platform.draw();
 
@@ -128,7 +130,8 @@ function draw() {
     }
 
     // update score
-    // help from the same youtube video as before
+    // done with help of a youtube video
+    // https://www.youtube.com/watch?v=pHFtOYU-a20&feature=youtu.be
     updateScore();
     fill(255);
     textSize(16);
@@ -161,7 +164,8 @@ function mousePressed() {
 window.mousePressed = mousePressed;
 
 // update score
-// help from the same youtube video as before
+// done with help of a youtube video
+// https://www.youtube.com/watch?v=pHFtOYU-a20&feature=youtu.be
 function updateScore() {
   // adding/ subtracting points
   let points = Math.floor(1);
@@ -182,7 +186,7 @@ function updateScore() {
 window.updateScore = updateScore;
 
 // Done with the help of chatgpt
-// https://chatgpt.com/c/67504f28-e27c-800e-b92b-7027ae2d2387
+// https://chatgpt.com/share/6751c9f5-3330-800e-bec7-640fbd612e62
 function resetGame() {
   gameOver = false;
   score = 0;
@@ -193,9 +197,9 @@ function resetGame() {
   platforms = [];
 
   // platforms
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 100; i++) {
     let randomX = Math.random() * width;
-    let randomY = Math.random() * height;
+    let randomY = Math.random() * height * 2 - height;
     platforms.push(new Platform(randomX, randomY));
   }
 }
