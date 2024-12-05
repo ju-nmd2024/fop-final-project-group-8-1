@@ -10,21 +10,22 @@ export default class Platform {
       Math.random() < 0.1 ? (Math.random() < 0.5 ? -1 : 1) : 0;
     this.moveSpeed = 2;
 
-    // Math.random() < 0.1 ? 
-
-    
+    this.breakable = Math.random() < 0.1;
+    this.broken = false;
   }
 
   draw() {
+    if (this.broken) {
+      return;
+    }
+
     noStroke();
-    fill(255);
+    fill(this.breakable ? (196, 35, 35) : 255);
     rect(this.x, this.y, this.width, this.height, 10);
 
     if (this.moveX !== 0) {
       this.x += this.moveX * this.moveSpeed;
     }
-
-    
   }
 
   detectCollision(x, y) {
@@ -32,7 +33,14 @@ export default class Platform {
       x > this.x &&
       x < this.x + this.width &&
       y > this.y &&
-      y < this.y + this.height *3
+      y < this.y + this.height * 3
     );
+    {
+      if (this.breakable) {
+        this.broken = true;
+      }
+      return true;
+    }
+    return false;
   }
 }
