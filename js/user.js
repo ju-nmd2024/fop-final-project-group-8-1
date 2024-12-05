@@ -6,6 +6,7 @@ export default class User {
   }
 
   draw() {
+    // user
     image(this.userImage, this.x, this.y, 100, 110);
 
     // move user with arrow keys

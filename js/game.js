@@ -11,16 +11,15 @@ let platforms = [];
 let boardWidth = 300;
 let boardHeight = 500;
 
-//game logic variables
-let speed = 1;
+let speed = 1; // user falling speed
 let velocityY = 0; //user jump speed
-let firstVelocityY = -9; //start velocity
-let gravity = 0.4;
+let firstVelocityY = -9; // user start velocity
+let gravity = 0.4; // user gravity
 let score = 0;
 let maxScore = 0;
 let gameOver = false;
 
-// importing images done with the help of Lova & Emelie
+// importing images done with the help of Lova Venema & Emelie Kryger
 export let startPicture;
 export let losePicture;
 export let gameScreen;
@@ -45,9 +44,9 @@ function setup() {
 
     let newPlatform = new Platform(randomX, randomY);
 
+    // space between platforms
     // with the help of chatgpt, double check!!
     // https://chatgpt.com/c/674e240e-cc24-800e-927a-4bc164234dae
-    // space between platforms
     let overlaps = platforms.some((platform) => {
       return !(
         newPlatform.x + newPlatform.width + 50 < platform.x ||
@@ -57,6 +56,7 @@ function setup() {
       );
     });
 
+    // adding platform if it doesn't overlap
     if (!overlaps) {
       platforms.push(newPlatform);
     }
@@ -74,12 +74,15 @@ function draw() {
   } else if (gameOver) {
     loseGame.draw();
   } else {
+    // background
     image(gameScreen, 0, 0, 300, 500);
 
     // user logic
     user.draw();
+    // user falling
     user.y = user.y + speed;
 
+    // user appering from each side when going from the opposite side
     //done with help of a youtube video
     //https://www.youtube.com/watch?v=pHFtOYU-a20&feature=youtu.be
     if (user.x > boardWidth) {
@@ -88,18 +91,24 @@ function draw() {
       user.x = boardWidth;
     }
 
-    // collision from youtube video
+    // user gravity and movement
     velocityY += gravity;
     user.y += velocityY;
 
+    // update platforms
+    // youtube video
     for (let platform of platforms) {
       platform.draw();
+
+      // moving platforms down when user moves up
       if (velocityY < 0 && user.y < (boardHeight * 3) / 4) {
         platform.y -= firstVelocityY; // slide platform down
       }
 
+      // user platform collision
       if (platform.detectCollision(user.x + 45, user.y + 110)) {
-        velocityY = firstVelocityY; // Jump off platform
+        // Jump off platform
+        velocityY = firstVelocityY;
       }
     }
 
@@ -108,27 +117,28 @@ function draw() {
       platforms.shift(); // removes first element from array
     }
 
-      if (platforms[platforms.length - 1].y > 0) {
-        // Add a new platform at the top of the screen
-        let randomX = Math.random() * width; // Random X position
-        let randomY = -50 + Math.random() * -50;
-        let newPlatform = new Platform(randomX, randomY);
-  
-      platforms.push(newPlatform); // Add the new platform to the array
+    if (platforms[platforms.length - 1].y > 0) {
+      // Add a new platform at the top of the screen
+      let randomX = Math.random() * width; // Random X position
+      let randomY = -50 + Math.random() * -50; // Y position
+      let newPlatform = new Platform(randomX, randomY);
+
+      // Add new platform to the array
+      platforms.push(newPlatform);
     }
 
-    // moving the platform
-    // platform.x += 1;
-
+    // update score
     // help from the same youtube video as before
-    // // score
     updateScore();
     fill(255);
     textSize(16);
     text(`Score: ${score}`, 5, 20);
 
+    // end game if user falls off the screen
     if (user.y > boardHeight) {
       gameOver = true;
+
+      // final score in lose screen
       loseGame.setScore(score);
     }
   }
@@ -139,27 +149,32 @@ window.draw = draw;
 function mousePressed() {
   if (!gameState) {
     if (startGame.handleMouseClick()) {
-      gameState = true;
+      gameState = true; // start game
     }
   } else if (gameOver) {
     if (loseGame.handleMouseClick()) {
-      resetGame();
+      resetGame(); // restart game
     }
   }
 }
 
 window.mousePressed = mousePressed;
 
+// update score
 // help from the same youtube video as before
 function updateScore() {
+  // adding/ subtracting points
   let points = Math.floor(1);
 
   if (velocityY < 0) {
+    // adding points when user goes up
     maxScore += points;
     if (score < maxScore) {
+      // update current score
       score = maxScore;
     }
   } else if (velocityY >= 0) {
+    // redusing points when user goes down
     maxScore -= points;
   }
 }
@@ -177,6 +192,7 @@ function resetGame() {
   user.x = 100;
   platforms = [];
 
+  // platforms
   for (let i = 0; i < 10; i++) {
     let randomX = Math.random() * width;
     let randomY = Math.random() * height;
