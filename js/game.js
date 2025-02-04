@@ -7,6 +7,7 @@ import LoseGame from "./loseGame.js";
 let gameState = false;
 let user;
 let platforms = [];
+let fallingPlatforms = [];
 
 let boardWidth = 300;
 let boardHeight = 500;
@@ -77,7 +78,6 @@ function draw() {
   } else {
     // background
     image(gameScreen, 0, 0, 300, 500);
-
     // user logic
     user.draw();
     // user falling
@@ -99,7 +99,8 @@ function draw() {
     // update platforms
     // done with help of a youtube video
     // https://www.youtube.com/watch?v=pHFtOYU-a20&feature=youtu.be
-    for (let platform of platforms) {
+    for (let i = platforms.length - 1; i >= 0; i--) {
+      let platform = platforms[i];
       platform.draw();
 
       // moving platforms down when user moves up
@@ -109,14 +110,40 @@ function draw() {
 
       // user platform collision
       if (platform.detectCollision(user.x + 45, user.y + 110)) {
-        // Jump off platform
-        velocityY = firstVelocityY;
+        // jump off platform
+        if (platform.breakable) {
+          // creating two smaller falling platforms
+          let leftPiece = new Platform(
+            platform.x,
+            platform.y,
+            platform.width / 2
+          );
+          let rightPiece = new Platform(
+            platform.x + platform.width / 2,
+            platform.y,
+            platform.width / 2
+          );
+
+          // make the platforms fall
+          leftPiece.falling = true;
+          rightPiece.falling = true;
+
+          // adding to falling platforms array
+          fallingPlatforms.push(leftPiece, rightPiece);
+
+          // removing original platform
+          platforms.splice(i, 1);
+        } else {
+          // jump normally on regular platforms
+          velocityY = firstVelocityY;
+        }
       }
     }
 
     // clear platforms and add new platform
     while (platforms[0].y >= boardHeight) {
-      platforms.shift(); // removes first element from array
+      // removing first element from array
+      platforms.shift();
     }
 
     if (platforms[platforms.length - 1].y > 0) {
@@ -127,6 +154,19 @@ function draw() {
 
       // Add new platform to the array
       platforms.push(newPlatform);
+    }
+
+    // updating falling platforms
+    for (let i = fallingPlatforms.length - 1; i >= 0; i--) {
+      let fallingPlatform = fallingPlatforms[i];
+      fallingPlatform.draw();
+      // making it fall down
+      fallingPlatform.y += 3;
+
+      if (fallingPlatform.y > boardHeight) {
+        // removing when out of screen
+        fallingPlatforms.splice(i, 1);
+      }
     }
 
     // update score
