@@ -15,13 +15,17 @@ export default class Platform {
     this.moveSpeed = 2;
 
     // breakable platforms (10% chance)
-    this.breakable = Math.random() < 0.1;
+    if (random() < 0.1) {
+      this.breakable = true;
+    } else {
+      this.breakable = false;
+    }
   }
 
   draw() {
     noStroke();
 
-    if (this.breakable) {
+    if (this.breakable === true) {
       // breakable platforms are red
       fill(150, 0, 0);
     } else {

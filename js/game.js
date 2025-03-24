@@ -111,25 +111,26 @@ function draw() {
       // user platform collision
       if (platform.detectCollision(user.x + 45, user.y + 110)) {
         // jump off platform
-        if (platform.breakable) {
+        if (platform.breakable === true) {
           // creating two smaller falling platforms
-          let leftPiece = new Platform(
-            platform.x,
-            platform.y,
-            platform.width / 2
-          );
-          let rightPiece = new Platform(
-            platform.x + platform.width / 2,
-            platform.y,
-            platform.width / 2
-          );
 
-          // make the platforms fall
-          leftPiece.falling = true;
-          rightPiece.falling = true;
+          // let leftPiece = new Platform(
+          //   platform.x,
+          //   platform.y,
+          //   platform.width / 2
+          // );
+          // let rightPiece = new Platform(
+          //   platform.x + platform.width / 2,
+          //   platform.y,
+          //   platform.width / 2
+          // );
 
-          // adding to falling platforms array
-          fallingPlatforms.push(leftPiece, rightPiece);
+          // // make the platforms fall
+          // leftPiece.falling = true;
+          // rightPiece.falling = true;
+
+          // // adding to falling platforms array
+          // fallingPlatforms.push(leftPiece, rightPiece);
 
           // removing original platform
           platforms.splice(i, 1);
