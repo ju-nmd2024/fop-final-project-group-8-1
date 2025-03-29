@@ -40,16 +40,17 @@ function setup() {
 
   velocityY = firstVelocityY;
 
-  for (let i = 0; i < 100; i++) {
-    let randomX = Math.random() * width;
+  for (let i = 0; i < 8; i++) {
+    platforms.push(new Platform(400 - i * 100));
+    /*let randomX = Math.random() * width;
     let randomY = Math.random() * height * 2 - height;
 
     let newPlatform = new Platform(randomX, randomY);
-
+*/
     // space between platforms
     // with the help of chatgpt, double check!!
     // https://chatgpt.com/share/6751d9ec-79e4-800e-bc73-9de36e656ba4
-    let overlaps = platforms.some((platform) => {
+    /*let overlaps = platforms.some((platform) => {
       return !(
         newPlatform.x + newPlatform.width + 50 < platform.x ||
         newPlatform.x > platform.x + platform.width + 50 ||
@@ -62,6 +63,7 @@ function setup() {
     if (!overlaps) {
       platforms.push(newPlatform);
     }
+      */
   }
 }
 
